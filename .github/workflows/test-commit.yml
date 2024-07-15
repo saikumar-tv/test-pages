@@ -27,6 +27,7 @@ jobs:
     - name: Update values.yml
       run: |
         sed -i 's|image: .*|image: ${{ steps.vars.outputs.short_sha }}|' test/test-service/test-curl.yml
+        cat test/test-service/test-curl.yml
 
     - name: Commit and push changes
       run: |
