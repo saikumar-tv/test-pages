@@ -34,6 +34,6 @@ jobs:
         cd test
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
-        git add path/to/values.yml
+        git add test-service/test-curl.yml
         git commit -m "Update image tag to ${{ steps.vars.outputs.short_sha }}"
         git push
