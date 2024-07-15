@@ -22,7 +22,7 @@ jobs:
       with:
         repository: saikumar-tv/test
         token: ${{ secrets.GITHUB_TOKEN }}
-        path: test
+        # path: test
 
     - name: Update values.yml
       run: |
