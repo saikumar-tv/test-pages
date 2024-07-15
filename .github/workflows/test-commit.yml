@@ -29,7 +29,7 @@ jobs:
 
     - name: Update values.yml
       run: |
-        sed -i 's|image: .*|image: ${{env.COMMIT_SHA}}|' test/test-service/test-curl.yml
+        sed -i 's|image: .*|image: "${{env.COMMIT_SHA}}"|' test/test-service/test-curl.yml
         cat test/test-service/test-curl.yml
 
     - name: Commit and push changes
