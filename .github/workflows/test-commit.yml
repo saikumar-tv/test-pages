@@ -13,9 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Extract commit SHA
-      id: vars
-      run: echo "::set-output name=short_sha::$(git rev-parse --short=7 ${{ github.sha }})"
+    # - name: Extract commit SHA
+    #   id: vars
+    #   run: echo "::set-output name=short_sha::$(git rev-parse --short=7 ${{ github.sha }})"
+
+    - name: Generate Short Commit SHA
+      run: echo "COMMIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
 
     - name: Checkout target repo
       uses: actions/checkout@v2
@@ -26,7 +29,7 @@ jobs:
 
     - name: Update values.yml
       run: |
-        sed -i 's|image: .*|image: ${{ steps.vars.outputs.short_sha }}|' test/test-service/test-curl.yml
+        sed -i 's|image: .*|image: ${{env.COMMIT_SHA}}|' test/test-service/test-curl.yml
         cat test/test-service/test-curl.yml
 
     - name: Commit and push changes
