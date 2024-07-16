@@ -43,5 +43,10 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
         git add test-service/test-curl.yml
-        git commit -m "Update image tag to ${{env.COMMIT_SHA}} -- ${{ env.LATEST_COMMIT_MSG }}"
-        git push
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "Update image tag to ${{ env.COMMIT_SHA }} - ${{ env.LATEST_COMMIT_MSG }}"
+          git push
+        else
+          echo "No changes to commit"
+        fi
+        
