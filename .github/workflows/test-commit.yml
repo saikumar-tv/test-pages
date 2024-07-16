@@ -20,6 +20,10 @@ jobs:
     - name: Generate Short Commit SHA
       run: echo "COMMIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
 
+    - name: Get latest commit message
+      id: commit_message
+      run: echo "LATEST_COMMIT_MSG=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+
     - name: Checkout target repo
       uses: actions/checkout@v2
       with:
@@ -38,5 +42,5 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
         git add test-service/test-curl.yml
-        git commit -m "Update image tag to ${{env.COMMIT_SHA}}"
+        git commit -m "Update image tag to ${{env.COMMIT_SHA}} -- ${{ env.LATEST_COMMIT_MSG }}"
         git push
